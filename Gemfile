@@ -27,6 +27,12 @@ gem 'bootsnap', '>= 1.4.2', require: false
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
 
+#gem 'kramdown', '= 1.17.0', :require => ["kramdown", "kramdown/parser/kramdown", "kramdown/converter/pdf"]
+gem 'prawn', :require => ["prawn", "prawn/measurement_extensions"]
+gem 'prawn-table', :require => 'prawn/table'
+
+
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

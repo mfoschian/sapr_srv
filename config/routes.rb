@@ -9,5 +9,6 @@ Rails.application.routes.draw do
 	resources :equipments
 	resources :equipment_types
 	resources :uav
-	
+
+	get '/reports/test', to: 'reports#test'
 end
