@@ -25,7 +25,7 @@ gem 'puma', '~> 4.1'
 gem 'bootsnap', '>= 1.4.2', require: false
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
-# gem 'rack-cors'
+gem 'rack-cors'
 
 #gem 'kramdown', '= 1.17.0', :require => ["kramdown", "kramdown/parser/kramdown", "kramdown/converter/pdf"]
 gem 'prawn', :require => ["prawn", "prawn/measurement_extensions"]
