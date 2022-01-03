@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_23_140115) do
+ActiveRecord::Schema.define(version: 2022_01_03_100140) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 2021_12_23_140115) do
 
   create_table "activities", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "title"
-    t.date "dt"
+    t.datetime "dt"
     t.string "municipality_code"
     t.string "locality"
     t.float "alt"
@@ -49,8 +49,8 @@ ActiveRecord::Schema.define(version: 2021_12_23_140115) do
 
   create_table "missions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "activity_id"
-    t.date "dt_start"
-    t.date "dt_end"
+    t.datetime "dt_start"
+    t.datetime "dt_end"
     t.json "uav_setup"
     t.json "meteo_info"
     t.json "sat_info"
