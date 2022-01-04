@@ -1,6 +1,7 @@
 module Pdf
 	class BaseReport
-		def initialize
+		def initialize(logger)
+			@logger = logger
 			@pdf = Prawn::Document.new(page_size: "A4", print_scaling: :none, margin: [30.mm, 10.mm, 15.mm, 10.mm])
 			# @pdf.font_families.update(
 			# 	"Decima" => {
