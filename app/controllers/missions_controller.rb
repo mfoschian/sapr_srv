@@ -11,7 +11,8 @@ class MissionsController < ApplicationController
 			activity_id: p[:activity_id],
 			dt_start: p[:dt_start],
 			dt_end: p[:dt_end],
-			uav_setup: p[:uav_setup]
+			uav_setup: p[:uav_setup],
+			pilot_id: p[:pilot_id]
 		}
 
 		begin
@@ -34,7 +35,7 @@ class MissionsController < ApplicationController
 		end
 
 		# TODO: permettere modifiche solo a chi ne ha diritto
-		[:activity_id, :dt_start, :dt_end, :uav_setup ].each do |k|
+		[:activity_id, :dt_start, :dt_end, :uav_setup, :pilot_id ].each do |k|
 			if params.has_key?(k)
 				a[k] = params[k]
 			end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_03_100140) do
+ActiveRecord::Schema.define(version: 2022_01_04_150816) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -54,9 +54,11 @@ ActiveRecord::Schema.define(version: 2022_01_03_100140) do
     t.json "uav_setup"
     t.json "meteo_info"
     t.json "sat_info"
+    t.uuid "pilot_id"
     t.index ["activity_id"], name: "index_missions_on_activity_id"
     t.index ["dt_end"], name: "index_missions_on_dt_end"
     t.index ["dt_start"], name: "index_missions_on_dt_start"
+    t.index ["pilot_id"], name: "index_missions_on_pilot_id"
   end
 
   create_table "pilots", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
