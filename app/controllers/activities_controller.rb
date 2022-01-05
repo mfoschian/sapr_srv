@@ -1,6 +1,10 @@
 class ActivitiesController < ApplicationController
 	def index
-		items = Activity.all
+		if params.has_key?(:archived)
+			items = Activity.where.not( dt_closed: nil )
+		else
+			items = Activity.where( dt_closed: nil )
+		end
 		render json: items
 	end
 
@@ -19,7 +23,8 @@ class ActivitiesController < ApplicationController
 			category: p[:category].to_i,
 			scenary: p[:scenary].to_i,
 			flight_type: p[:flight_type].to_i,
-			type: p[:type].to_i
+			type: p[:type].to_i,
+			dt_closed: p[:dt_closed]
 		}
 
 		begin
@@ -42,7 +47,7 @@ class ActivitiesController < ApplicationController
 		end
 
 		# TODO: permettere modifiche solo a chi ne ha diritto
-		[:title, :dt, :municipality_code, :locality ].each do |k|
+		[:title, :dt, :municipality_code, :locality, :dt_closed ].each do |k|
 			if params.has_key?(k)
 				a[k] = params[k]
 			end
@@ -62,9 +67,7 @@ class ActivitiesController < ApplicationController
 
 		res = a.save
 		if res
-			render json: {
-				item: a
-			}
+			render json: a
 		else
 			render json: {
 				errors: a.errors
