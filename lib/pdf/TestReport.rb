@@ -20,6 +20,7 @@ module Pdf
 					"Pilota In Comando"
 				]
 			]
+			@row_per_page = 12
 		end
 
 
@@ -61,21 +62,33 @@ module Pdf
 				# res << [ "|","","","","","",""]
 				# res << [ "|","","","","","",""]
 			end
+			r = @row_per_page - (res.size % @row_per_page)
+			res = res.concat( [["","","","","","",""]] * r )
 			return res
 		end
 
 		def build
-			data = [].concat(@headers).concat( get_data() )
+			data = get_data()
+			data = [].concat(@headers).concat( data )
 			header_size = @headers.size
 			@pdf.table( data,
 				width: @pdf.bounds.width,
-				cell_style: {padding: 2},
-				:row_colors => ["F0F0F0", "FFFFCC"]
+				cell_style: {padding: 2} # , align: { 0 => :center, 1 => :center, 2 => :center, 4 => :center, 5 => :center } 
+				# :row_colors => ["F0F0F0", "FFFFCC"]
 			) do
 				hh = row(0..1)
 				hh.font_style = :bold
-				hh.background_color = "CCCCCC"
+				hh.background_color = "BFBFBF" # "CCCCCC"
+				hh.valign = :center
+				hh.align = :center
 				self.header = header_size
+				[0,1,2,4,5].each do |n|
+					column(n).style :align => :center
+				end
+				rows(header_size..-1).each do |r|
+					r.valign = :center
+					r.height = 25
+				end
 			end
 		end
 	end
