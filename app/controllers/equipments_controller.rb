@@ -11,7 +11,6 @@ class EquipmentsController < ApplicationController
 		item = {
 			name: p[:name],
 			type: p[:type],
-			used: p[:used],
 			mission_id: p[:mission_id]
 		}
 
