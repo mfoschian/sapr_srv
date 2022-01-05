@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_05_084918) do
+ActiveRecord::Schema.define(version: 2022_01_05_135342) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -41,12 +41,10 @@ ActiveRecord::Schema.define(version: 2022_01_05_084918) do
   create_table "equipments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
     t.string "type"
-    t.boolean "used"
     t.uuid "mission_id"
     t.index ["mission_id"], name: "index_equipments_on_mission_id"
     t.index ["name"], name: "index_equipments_on_name"
     t.index ["type"], name: "index_equipments_on_type"
-    t.index ["used"], name: "index_equipments_on_used"
   end
 
   create_table "missions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
