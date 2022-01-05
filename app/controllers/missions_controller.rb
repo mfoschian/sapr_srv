@@ -16,7 +16,7 @@ class MissionsController < ApplicationController
 		}
 
 		begin
-			u = Mission.create( item )
+			u = Mission.create!( item )
 			render json: u
 			# render json: {
 			# 	success: u.valid?,

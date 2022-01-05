@@ -6,7 +6,11 @@ Rails.application.routes.draw do
 	resources :activities
 	resources :missions
 	resources :equipment_types
-	resources :equipments
+	resources :equipments do
+		collection do
+			put 'batch_update', action: 'batch_update'
+		end
+	end
 	resources :equipment_types
 	resources :uav
 

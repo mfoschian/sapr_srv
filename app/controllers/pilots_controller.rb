@@ -19,7 +19,7 @@ class PilotsController < ApplicationController
 		}
 
 		begin
-			u = Pilot.create( item )
+			u = Pilot.create!( item )
 			render json: u
 			# render json: {
 			# 	success: u.valid?,

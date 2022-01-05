@@ -11,11 +11,12 @@ class EquipmentsController < ApplicationController
 		item = {
 			name: p[:name],
 			type: p[:type],
-			used: p[:used]
+			used: p[:used],
+			mission_id: p[:mission_id]
 		}
 
 		begin
-			u = Equipment.create( item )
+			u = Equipment.create!( item )
 			render json: u
 			# render json: {
 			# 	success: u.valid?,
@@ -34,14 +35,10 @@ class EquipmentsController < ApplicationController
 		end
 
 		# TODO: permettere modifiche solo a chi ne ha diritto
-		[:name, :type ].each do |k|
+		[:name, :type, :mission_id ].each do |k|
 			if params.has_key?(k)
 				a[k] = params[k]
 			end
-		end
-
-		if params.has_key?(:used)
-			a[:used] = params[:used] ? true : false
 		end
 
 		res = a.save
@@ -71,4 +68,41 @@ class EquipmentsController < ApplicationController
 		item.destroy
 		render json: { success: true }
 	end
+
+	def batch_update
+
+		unless params.has_key?(:equips)
+			render json: { errors: "No equipment specified!" }
+			return
+		end
+
+		equips = params[:equips]
+		errors = nil
+
+		Equipment.transaction do
+			equips.each do |equip|
+				a = Equipment.find_by_id( equip[:id] )
+				if a.nil?
+					throw "Not found"
+				end
+
+				# TODO: permettere modifiche solo a chi ne ha diritto
+				[:name, :type, :mission_id ].each do |k|
+					if equip.has_key?(k)
+						a[k] = equip[k]
+					end
+				end
+				res = a.save
+				unless res
+					errors = a.errors
+					raise ActiveRecord::Rollback
+				end
+			end
+		end
+		render json: {
+			success: errors.nil?,
+			errors: errors
+		}
+	end
+
 end

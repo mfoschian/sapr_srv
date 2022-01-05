@@ -23,7 +23,7 @@ class ActivitiesController < ApplicationController
 		}
 
 		begin
-			u = Activity.create( item )
+			u = Activity.create!( item )
 			render json: u
 			# render json: {
 			# 	success: u.valid?,
