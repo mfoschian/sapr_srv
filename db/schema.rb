@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_05_141906) do
+ActiveRecord::Schema.define(version: 2022_01_07_114134) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -87,6 +87,19 @@ ActiveRecord::Schema.define(version: 2022_01_05_141906) do
     t.index ["nick"], name: "index_uav_on_nick"
     t.index ["plate"], name: "index_uav_on_plate"
     t.index ["serial_number"], name: "index_uav_on_serial_number"
+  end
+
+  create_table "usages", force: :cascade do |t|
+    t.uuid "mission_id"
+    t.uuid "equipment_id"
+    t.datetime "dt_start"
+    t.datetime "dt_end"
+    t.integer "seconds"
+    t.index ["dt_end"], name: "index_usages_on_dt_end"
+    t.index ["dt_start"], name: "index_usages_on_dt_start"
+    t.index ["equipment_id"], name: "index_usages_on_equipment_id"
+    t.index ["mission_id"], name: "index_usages_on_mission_id"
+    t.index ["seconds"], name: "index_usages_on_seconds"
   end
 
 end
